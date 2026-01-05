@@ -14,6 +14,7 @@ import net.ender.ess_requiem.entity.mobs.skull_mass.SkullMassEntity;
 import net.ender.ess_requiem.entity.mobs.summoned_weapon.SoulmasterSwordEntity;
 import net.ender.ess_requiem.registries.GGAttributeRegistry;
 import net.ender.ess_requiem.registries.GGEntityRegistry;
+import net.ender.ess_requiem.registries.GGSpellRegistry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
@@ -86,11 +87,11 @@ public class BattleStandardEntity extends UniqueAbstractSpellCastingMob implemen
 
     @Override
     public void registerGoals() {
-        this.goalSelector.addGoal(2, new WizardAttackGoal(this, 1.5, 25, 50)
+        this.goalSelector.addGoal(2, new WizardAttackGoal(this, 1.5, 28, 52)
                 .setSpells(
-                        List.of(SpellRegistry.FIREBALL_SPELL.get()),
+                        List.of(GGSpellRegistry.SLASHING_ABILITY.get()),
                         List.of(),
-                        List.of(),
+                        List.of(GGSpellRegistry.GILDED_SWORD_SUMMON.get()),
                         List.of()
                 ));
 

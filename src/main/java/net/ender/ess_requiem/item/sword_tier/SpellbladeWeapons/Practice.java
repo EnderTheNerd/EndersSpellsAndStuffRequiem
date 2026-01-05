@@ -14,7 +14,7 @@ public class Practice extends MagicSwordItem {
     public Practice() {
         super(GGSwordTier.PRACTICE, ItemPropertiesHelper.equipment().rarity(Rarity.RARE).attributes(ExtendedSwordItem.createAttributes(GGSwordTier.PRACTICE)),
                 SpellDataRegistryHolder.of(new SpellDataRegistryHolder(GGSpellRegistry.SLASH, 3),
-                        new SpellDataRegistryHolder(GGSpellRegistry.SLAM, 2))
+                        new SpellDataRegistryHolder(GGSpellRegistry.SLAM, 3))
         );
     }
 }

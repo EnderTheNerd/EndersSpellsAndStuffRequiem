@@ -19,8 +19,7 @@ import net.ender.ess_requiem.item.sword_tier.EldritchWeapons.Inevitability;
 import net.ender.ess_requiem.item.sword_tier.EldritchWeapons.MidnightEmbrace;
 import net.ender.ess_requiem.item.sword_tier.HolyWeapons.Hope;
 import net.ender.ess_requiem.item.sword_tier.IceWeapons.ScytheOfFrozenDreams;
-import net.ender.ess_requiem.item.sword_tier.SpellbladeWeapons.Potential;
-import net.ender.ess_requiem.item.sword_tier.SpellbladeWeapons.Practice;
+import net.ender.ess_requiem.item.sword_tier.SpellbladeWeapons.*;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -76,7 +75,10 @@ public class GGItemRegistry {
 
     public static final DeferredItem<Item> POTENTIAL = ITEMS.register("potential", Potential::new);
     public static final DeferredItem<Item> PRACTICE = ITEMS.register("practice", Practice::new);
-
+    public static final DeferredItem<Item> EXPERTISE = ITEMS.register("expertise", Expertise::new);
+    public static final DeferredItem<Item> INTERTWINED_PEAK = ITEMS.register("intertwined_peak", IntertwinedPeak::new);
+    public static final DeferredItem<Item> SKYFALLS_CAUSE = ITEMS.register("skyfalls_cause", SkyfallsCause::new);
+    public static final DeferredItem<Item> SWIFT_DEMISE = ITEMS.register("swift_demise", SwiftDemise::new);
 
 
 
@@ -90,6 +92,11 @@ public class GGItemRegistry {
 
     public static final DeferredItem<Item> COMPLETED_CLARITY = ITEMS.register("completed_clarity",
             () -> new Item(new Item.Properties().rarity(ASRarities.COSMIC_RARITY_PROXY.getValue())));
+
+    public static final DeferredItem<Item> EMBOLDENED_INGOT = ITEMS.register("emboldened_ingot",
+            () -> new Item(new Item.Properties()));
+
+
 
 
  public static Collection<DeferredHolder<Item, ? extends Item>> getItems() {

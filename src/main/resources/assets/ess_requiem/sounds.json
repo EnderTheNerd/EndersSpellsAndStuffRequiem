@@ -103,5 +103,17 @@
     "sounds": [
       "ess_requiem:spellblade_cut_ranged"
     ]
+  },
+  "banner_spell_parry": {
+    "subtitle": "sounds.ess_requiem.banner_spell_parry",
+    "sounds": [
+      "ess_requiem:banner_spell_parry"
+    ]
+  },
+  "banner_summon": {
+    "subtitle": "sounds.ess_requiem.banner_spell_parry",
+    "sounds": [
+      "ess_requiem:banner_summon"
+    ]
   }
 }

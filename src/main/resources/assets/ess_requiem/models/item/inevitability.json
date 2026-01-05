@@ -2,10 +2,7 @@
   "parent": "minecraft:item/handheld",
   "loader": "neoforge:separate_transforms",
   "base": {
-    "parent": "irons_spellbooks:item/template_large_sword",
-    "textures": {
-      "layer0": "ess_requiem:item/inevitability"
-    }
+    "parent": "ess_requiem:item/inevitability_model"
   },
   "perspectives": {
     "gui": {

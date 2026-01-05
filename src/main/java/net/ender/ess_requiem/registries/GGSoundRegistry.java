@@ -49,6 +49,10 @@ public class GGSoundRegistry {
 
     public static DeferredHolder<SoundEvent, SoundEvent> SPELLBLADE_CUT_RANGED = registerSoundEvent("spellblade_cut");
 
+    public static DeferredHolder<SoundEvent, SoundEvent> BANNER_SPELL_PARRY = registerSoundEvent("banner_spell_parry");
+
+    public static DeferredHolder<SoundEvent, SoundEvent> BANNER_SUMMON = registerSoundEvent("banner_summon");
+
     private static DeferredHolder<SoundEvent, SoundEvent> registerSoundEvent(String name)
     {
         return SOUND_EVENT.register(name, () -> SoundEvent.createVariableRangeEvent

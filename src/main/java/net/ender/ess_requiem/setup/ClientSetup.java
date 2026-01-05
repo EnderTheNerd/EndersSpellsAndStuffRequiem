@@ -4,6 +4,8 @@ import net.ender.ess_requiem.EndersSpellsAndStuffRequiem;
 
 import net.ender.ess_requiem.entity.mobs.battle_standard.BattleStandardModel;
 import net.ender.ess_requiem.entity.mobs.battle_standard.BattleStandardRenderer;
+import net.ender.ess_requiem.entity.mobs.gilded_weapon.GildedSwordRenderer;
+import net.ender.ess_requiem.entity.mobs.gilded_weapon.GildedWeaponModel;
 import net.ender.ess_requiem.entity.mobs.hopping_skull.HoppingSkullModel;
 import net.ender.ess_requiem.entity.mobs.hopping_skull.HoppingSkullRenderer;
 
@@ -47,6 +49,7 @@ public class ClientSetup {
         event.registerEntityRenderer(GGEntityRegistry.CORPSE_PUDDLE.get(), NoopRenderer::new);
         event.registerEntityRenderer(GGEntityRegistry.ETERNAL_BATTLEFIELD.get(), NoopRenderer::new);
         event.registerEntityRenderer(GGEntityRegistry.OVERWHELMING_FORCE.get(), OverwhelmingForceRenderer::new);
+        event.registerEntityRenderer(GGEntityRegistry.GILDED_SWORD.get(), context -> {return new GildedSwordRenderer(context, new GildedWeaponModel());});
         event.registerEntityRenderer(GGEntityRegistry.SOULMASTER_SWORD.get(), context -> {return new SoulmasterSwordRenderer(context, new SoulmasterSwordModel());});
         event.registerEntityRenderer(GGEntityRegistry.HOPPING_SKULL.get(), context -> {return new HoppingSkullRenderer(context, new HoppingSkullModel());});
         event.registerEntityRenderer(GGEntityRegistry.BATTLE_STANDARD.get(), context -> {return new BattleStandardRenderer(context, new BattleStandardModel());});

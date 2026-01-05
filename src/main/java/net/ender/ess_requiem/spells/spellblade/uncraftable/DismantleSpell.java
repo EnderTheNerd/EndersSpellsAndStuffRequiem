@@ -158,4 +158,19 @@ public class DismantleSpell extends AbstractSpell {
         public AnimationHolder getCastFinishAnimation() {
             return AnimationHolder.pass();
         }
+
+    @Override
+    public boolean canBeCraftedBy(Player player) {
+        return false;
+    }
+
+    @Override
+    public boolean allowCrafting() {
+        return false;
+    }
+
+    @Override
+    public boolean allowLooting() {
+        return false;
+    }
 }

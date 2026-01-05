@@ -1,6 +1,7 @@
 package net.ender.ess_requiem.item;
 
 import net.ender.ess_requiem.EndersSpellsAndStuffRequiem;
+import net.ender.ess_requiem.registries.GGEffectRegistry;
 import net.ender.ess_requiem.registries.GGItemRegistry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -41,6 +42,7 @@ public class ModCreativeModTabs {
                         output.accept(GGItemRegistry.HOPE);
                         output.accept(GGItemRegistry.INEVITABILITY);
                         output.accept(GGItemRegistry.SPELLBLADE_RUNE);
+                        output.accept(GGItemRegistry.EMBOLDENED_INGOT);
                         output.accept((ItemLike) GGItemRegistry.SPELLBLADE_UPGRADE_ORB);
                         output.accept((ItemLike) GGItemRegistry.BLADEMASTER_HELMET);
                         output.accept((ItemLike) GGItemRegistry.BLADEMASTER_CHESTPLATE);
@@ -48,6 +50,8 @@ public class ModCreativeModTabs {
                         output.accept((ItemLike) GGItemRegistry.BLADEMASTER_BOOTS);
                         output.accept(GGItemRegistry.POTENTIAL);
                         output.accept(GGItemRegistry.PRACTICE);
+                        output.accept(GGItemRegistry.EXPERTISE);
+                        output.accept(GGItemRegistry.INTERTWINED_PEAK);
 
                     })
 

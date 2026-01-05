@@ -2,6 +2,7 @@ package net.ender.ess_requiem.entity.mobs.gilded_weapon;
 
 import io.redspace.ironsspellbooks.IronsSpellbooks;
 import io.redspace.ironsspellbooks.api.util.Utils;
+import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
 import io.redspace.ironsspellbooks.entity.mobs.IAnimatedAttacker;
 import io.redspace.ironsspellbooks.entity.mobs.IMagicSummon;
 import io.redspace.ironsspellbooks.entity.mobs.abstract_spell_casting_mob.AbstractSpellCastingMob;
@@ -11,8 +12,12 @@ import io.redspace.ironsspellbooks.entity.mobs.wizards.GenericAnimatedWarlockAtt
 import io.redspace.ironsspellbooks.util.OwnerHelper;
 import net.ender.ess_requiem.entity.mobs.summoned_weapon.SoulmasterSwordEntity;
 import net.ender.ess_requiem.registries.GGEntityRegistry;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -73,7 +78,7 @@ public class GildedWeaponEntity  extends AbstractSpellCastingMob implements IMag
                 .add(Attributes.MAX_HEALTH, 80.0)
                 .add(Attributes.FOLLOW_RANGE, 50)
                 .add(Attributes.FLYING_SPEED, 3)
-                .add(Attributes.ENTITY_INTERACTION_RANGE, 3.5)
+                .add(Attributes.ENTITY_INTERACTION_RANGE, 2.5)
                 .add(Attributes.MOVEMENT_SPEED, .8);
 
     }
@@ -138,9 +143,42 @@ public class GildedWeaponEntity  extends AbstractSpellCastingMob implements IMag
 
     @Override
     public void onUnSummon() {
-
+        if (!this.level().isClientSide) {
+            MagicManager.spawnParticles(this.level(), ParticleTypes.ENCHANT,
+                    getX(), getY(), getZ(),
+                    25, 0.4, 0.8, 0.4, 0.03, false);
+            discard();
+        }
     }
-    // Geckolib & Animations
+
+
+    @Override
+    public void die(DamageSource pDamageSource) {
+        this.onDeathHelper();
+        super.die(pDamageSource);
+    }
+
+    @Override
+    public void onRemovedFromLevel() {
+
+
+        super.onRemovedFromLevel();
+    }
+    //Sounds and Stuff
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return SoundEvents.NETHER_GOLD_ORE_BREAK;
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.GILDED_BLACKSTONE_BREAK;
+    }
+
+
+    @Override
+    public void remove(RemovalReason pReason) {
+        super.remove(pReason);
+    }
     RawAnimation animationToPlay = null;
 
     private final AnimationController<GildedWeaponEntity> attackAnimationController = new AnimationController<>(this, "attack_controller", 0, this::attackPredicate);

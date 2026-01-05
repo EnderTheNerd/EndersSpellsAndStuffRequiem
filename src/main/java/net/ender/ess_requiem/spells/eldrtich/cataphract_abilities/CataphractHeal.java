@@ -1,4 +1,4 @@
-package net.ender.ess_requiem.spells.cataphract_abilities;
+package net.ender.ess_requiem.spells.eldrtich.cataphract_abilities;
 
 
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
@@ -12,7 +12,6 @@ import net.ender.ess_requiem.registries.GGEffectRegistry;
 import net.ender.ess_requiem.registries.GGParticleRegistry;
 import net.ender.ess_requiem.registries.GGSoundRegistry;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;

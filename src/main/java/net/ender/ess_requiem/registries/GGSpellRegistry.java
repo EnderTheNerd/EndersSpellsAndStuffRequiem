@@ -8,10 +8,10 @@ import net.ender.ess_requiem.spells.blood.*;
 import net.ender.ess_requiem.spells.blood.uncraftable.CorpseExplosionSpell;
 import net.ender.ess_requiem.spells.blood.uncraftable.DecayingWillSpell;
 import net.ender.ess_requiem.spells.blood.uncraftable.TheFinalityOfDecaySpell;
-import net.ender.ess_requiem.spells.cataphract_abilities.CataphractHeal;
-import net.ender.ess_requiem.spells.cataphract_abilities.CataphractSlam;
+import net.ender.ess_requiem.spells.eldrtich.cataphract_abilities.CataphractHeal;
+import net.ender.ess_requiem.spells.eldrtich.cataphract_abilities.CataphractSlam;
 import net.ender.ess_requiem.spells.eldrtich.*;
-import net.ender.ess_requiem.spells.cataphract_abilities.CataphractTackle;
+import net.ender.ess_requiem.spells.eldrtich.cataphract_abilities.CataphractTackle;
 import net.ender.ess_requiem.spells.eldrtich.uncraftable.DamnationSpell;
 import net.ender.ess_requiem.spells.eldrtich.uncraftable.EbonyCataphractSpell;
 import net.ender.ess_requiem.spells.eldrtich.uncraftable.UnderTheCoverOfNightSpell;
@@ -20,6 +20,8 @@ import net.ender.ess_requiem.spells.holy.uncraftable.OverwhelmingLightSpell;
 import net.ender.ess_requiem.spells.ice.uncraftable.GlacialStatueSpell;
 import net.ender.ess_requiem.spells.ice.uncraftable.LordOfTheFinalFrostSpell;
 import net.ender.ess_requiem.spells.spellblade.*;
+import net.ender.ess_requiem.spells.spellblade.banner_abilities.GildedSwordSummon;
+import net.ender.ess_requiem.spells.spellblade.banner_abilities.SlashingAbility;
 import net.ender.ess_requiem.spells.spellblade.uncraftable.CleaveSpell;
 import net.ender.ess_requiem.spells.spellblade.uncraftable.DismantleSpell;
 import net.ender.ess_requiem.spells.spellblade.uncraftable.MalevolentSlashingSpell;
@@ -81,6 +83,7 @@ public class GGSpellRegistry {
     public static final Supplier <AbstractSpell> SOULMASTER = registerSpell(new SoulmasterSummonSpell());
     public static final Supplier <AbstractSpell> OVERWHELMING = registerSpell(new OverwhelmingForceSpell());
     public static final Supplier <AbstractSpell> HONE_EDGE = registerSpell(new HoneEdgeSpell());
+    public static final Supplier <AbstractSpell> UNDYING_DREAD = registerSpell(new UndyingDreadSpell());
 
     //UNCRAFTABLE SPELLBLADE
     public static final Supplier <AbstractSpell> DISMANTLE = registerSpell(new DismantleSpell());
@@ -99,6 +102,8 @@ public class GGSpellRegistry {
     public static final Supplier <AbstractSpell> CATAPHRACT_TACKLE = registerSpell(new CataphractTackle());
     public static final Supplier <AbstractSpell> CATAPHRACT_SLAM = registerSpell(new CataphractSlam());
     public static final Supplier <AbstractSpell> CATAPHRACT_HEAL = registerSpell(new CataphractHeal());
+    public static final Supplier <AbstractSpell> GILDED_SWORD_SUMMON = registerSpell(new GildedSwordSummon());
+    public static final Supplier <AbstractSpell> SLASHING_ABILITY = registerSpell(new SlashingAbility());
 
 
     public static void register(IEventBus eventBus)

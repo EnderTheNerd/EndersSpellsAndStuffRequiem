@@ -1,4 +1,4 @@
-package net.ender.ess_requiem.spells.cataphract_abilities;
+package net.ender.ess_requiem.spells.eldrtich.cataphract_abilities;
 
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
@@ -6,11 +6,7 @@ import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.registry.SchoolRegistry;
 import io.redspace.ironsspellbooks.api.spells.*;
 import io.redspace.ironsspellbooks.api.util.Utils;
-import io.redspace.ironsspellbooks.capabilities.magic.ImpulseCastData;
 import io.redspace.ironsspellbooks.player.SpinAttackType;
-import io.redspace.ironsspellbooks.registries.MobEffectRegistry;
-import io.redspace.ironsspellbooks.spells.fire.BurningDashSpell;
-import io.redspace.ironsspellbooks.util.ParticleHelper;
 import net.ender.ess_requiem.EndersSpellsAndStuffRequiem;
 import net.ender.ess_requiem.registries.GGEffectRegistry;
 import net.ender.ess_requiem.registries.GGParticleRegistry;
@@ -19,26 +15,22 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.protocol.game.ClientboundPlayerPositionPacket;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;
-import net.minecraft.world.entity.RelativeMovement;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 

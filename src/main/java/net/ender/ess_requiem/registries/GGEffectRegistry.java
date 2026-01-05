@@ -89,7 +89,7 @@ public class GGEffectRegistry {
             () -> new LordOfTheFinalFrost(MobEffectCategory.BENEFICIAL, 11131887));
 
 
-    //SPELLBLADE
+    //SPELLBLADE EFFECTS
     public static final DeferredHolder<MobEffect, MobEffect> PARRYING = MOB_EFFECT_DEFERRED_REGISTER.register("parrying",
             () -> new ParryingEffect(MobEffectCategory.BENEFICIAL, 15355541));
 
@@ -107,6 +107,9 @@ public class GGEffectRegistry {
 
     public static final DeferredHolder<MobEffect, MobEffect> STUNNED = MOB_EFFECT_DEFERRED_REGISTER.register("stunned",
             () -> new StunnedEffect(MobEffectCategory.HARMFUL, 3020845));
+
+    public static final DeferredHolder<MobEffect, MobEffect> BANNER_PROTECTION = MOB_EFFECT_DEFERRED_REGISTER.register("banner_protection",
+            () -> new BannerProtectionEffect(MobEffectCategory.BENEFICIAL, 14522123));
 
 
     //MISC EFFECTS

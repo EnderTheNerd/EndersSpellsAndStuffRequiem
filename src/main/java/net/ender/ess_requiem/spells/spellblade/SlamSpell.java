@@ -1,7 +1,6 @@
 package net.ender.ess_requiem.spells.spellblade;
 
-import com.gametechbc.spelllib.particle.CylinderParticleManager;
-import com.gametechbc.spelllib.particle.ParticleDirection;
+
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.spells.*;
@@ -12,6 +11,8 @@ import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.damage.DamageSources;
 import io.redspace.ironsspellbooks.entity.spells.StompAoe;
 import net.ender.ess_requiem.EndersSpellsAndStuffRequiem;
+import net.ender.ess_requiem.particle.particle_managers.GGCylinderPManager;
+import net.ender.ess_requiem.particle.particle_managers.GGParticleDirection;
 import net.ender.ess_requiem.registries.GGSchoolRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -94,8 +95,6 @@ public class SlamSpell extends AbstractSpell {
         return getCastTime(spellLevel);
     }
 
-
-
     @Override
     public void onCast(Level level, int spellLevel, LivingEntity entity, CastSource castSource, MagicData playerMagicData) {
         float radius2 = 3;
@@ -104,8 +103,7 @@ public class SlamSpell extends AbstractSpell {
         var bpos = BlockPos.containing(spawn);
         ((ServerLevel) level).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, level.getBlockState(bpos)).setPos(bpos), spawn.x, spawn.y, spawn.z, 40, 0.0D, 0.0D, 0.0D, (double) 0.20 + 0.05F * spellLevel);
 
-        CylinderParticleManager.spawnParticles(level, entity, 30 * spellLevel, ParticleTypes.CRIT, ParticleDirection.UPWARD, (double)radius2, (double)(4 * spellLevel), -1.0D);
-
+        GGCylinderPManager.spawnParticles(level, entity, 30 * spellLevel, ParticleTypes.CRIT, GGParticleDirection.UPWARD, (double)radius2, (double)(4 * spellLevel), -1.0D);
 
         var stomp = new StompAoe(level, getRange(spellLevel, entity), entity.getYRot());
         stomp.moveTo(spawn);
@@ -117,13 +115,11 @@ public class SlamSpell extends AbstractSpell {
         float radius = 3f;
         float range = 2f;
         Vec3 smiteLocation = Utils.raycastForBlock(level, entity.getEyePosition(), entity.getEyePosition().add(entity.getForward().multiply(range, 0, range)), ClipContext.Fluid.NONE).getLocation();
-        Vec3 particleLocation = level.clip(new ClipContext(smiteLocation, smiteLocation.add(0, -2, 0), ClipContext.Block.VISUAL, ClipContext.Fluid.NONE, CollisionContext.empty())).getLocation().add(0, 0.1, 0);
-
 
         var entities = level.getEntities(entity, AABB.ofSize(smiteLocation, radius, radius , radius ));
         var damageSource = this.getDamageSource(entity);
         for (Entity targetEntity : entities) {
-            //double distance = targetEntity.distanceToSqr(smiteLocation);
+
             if (targetEntity.isAlive() && targetEntity.isPickable() && Utils.hasLineOfSight(level, smiteLocation.add(0, 1, 0), targetEntity.getBoundingBox().getCenter(), true)) {
                 if (DamageSources.applyDamage(targetEntity, getDamage(spellLevel, entity), damageSource)) {
                     EnchantmentHelper.doPostAttackEffects((ServerLevel) level, targetEntity, damageSource);

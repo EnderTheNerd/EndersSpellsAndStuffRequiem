@@ -1,8 +1,5 @@
 package net.ender.ess_requiem.spells.eldrtich.uncraftable;
 
-import com.gametechbc.spelllib.particle.CylinderParticleManager;
-import com.gametechbc.spelllib.particle.ParticleDirection;
-import com.gametechbc.spelllib.particle.SphereParticleManager;
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.magic.SpellSelectionManager;
@@ -23,6 +20,9 @@ import net.ender.ess_requiem.entity.spells.black_flame.BlackFlameMedium;
 import net.ender.ess_requiem.entity.spells.black_flame.BlackFlameNormal;
 import net.ender.ess_requiem.entity.spells.black_flame.BlackFlameRenderer;
 import net.ender.ess_requiem.entity.spells.pale_flame.PaleFlame;
+import net.ender.ess_requiem.particle.particle_managers.GGCylinderPManager;
+import net.ender.ess_requiem.particle.particle_managers.GGParticleDirection;
+import net.ender.ess_requiem.particle.particle_managers.GGSpherePManager;
 import net.ender.ess_requiem.registries.GGEffectRegistry;
 import net.ender.ess_requiem.registries.GGSchoolRegistry;
 import net.ender.ess_requiem.registries.GGSoundRegistry;
@@ -112,9 +112,9 @@ public class DamnationSpell extends AbstractSpell {
 
     public void onServerCastTick(Level level, int spellLevel, LivingEntity entity, @Nullable MagicData playerMagicData) {
         float radius = 3F;
-        CylinderParticleManager.spawnParticles(level, entity, 30 * spellLevel, ParticleTypes.FALLING_OBSIDIAN_TEAR, ParticleDirection.INWARD, (double)radius, (double)(4 * spellLevel), -1.0D);
+        GGCylinderPManager.spawnParticles(level, entity, 30 * spellLevel, ParticleTypes.FALLING_OBSIDIAN_TEAR, GGParticleDirection.INWARD, (double)radius, (double)(4 * spellLevel), -1.0D);
 
-        SphereParticleManager.spawnParticles(level, entity, 40, ParticleTypes.DRIPPING_OBSIDIAN_TEAR, ParticleDirection.INWARD, 8.0D);
+        GGSpherePManager.spawnParticles(level, entity, 40, ParticleTypes.DRIPPING_OBSIDIAN_TEAR, GGParticleDirection.INWARD, 8.0D);
 
 
         super.onServerCastTick(level, spellLevel, entity, playerMagicData);

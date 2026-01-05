@@ -29,15 +29,20 @@
  "effect.ess_requiem.fading": "Fading",
  "effect.ess_requiem.undying_dread": "Undying Dread",
  "effect.ess_requiem.stunned": "Stunned",
+ "effect.ess_requiem.banner_protection": "Banner Protection",
 
  "entity.ess_requiem.hopping_skull": "Cursed Skull",
  "entity.ess_requiem.skull_mass": "Skull Mass",
  "entity.ess_requiem.soulmaster_sword": "Soulmaster Sword",
+ "entity.ess_requiem.battle_standard": "Battle Standard",
+ "entity.ess_requiem.gilded_sword": "Gilded Sword",
 
 
  "spell.ess_requiem.cataphract_tackle": "Cataphract Tackle (CREATIVE ONLY)",
  "spell.ess_requiem.cataphract_slam": "Cataphract Slam (CREATIVE ONLY)",
  "spell.ess_requiem.cataphract_heal": "Cataphract Heal (CREATIVE ONLY)",
+ "spell.ess_requiem.slashing_ability": "Slashing Ability (CREATIVE ONLY)",
+ "spell.ess_requiem.gild_summon": "Guilded Sword Summon (CREATIVE ONLY)",
 
 
  "spell.ess_requiem.pact_of_the_dead": "Pact of the Dead",
@@ -120,7 +125,8 @@
  "spell.ess_requiem.dismantle.guide": "Tense your muscles with magic, swinging your weapon, and unleashing a wave of furious slashes. The ranged slashes do half the damage of your original swing. The evolved form of slash.",
  "spell.ess_requiem.cleave": "Cleave",
  "spell.ess_requiem.cleave.guide": "Violently Slam your sword into the ground, enhanced with magic hatred, deal more damage towards those with extra mana. The shockwave deals half the damage of the sword's downslam. The evolved form of slam.",
-
+ "spell.ess_requiem.place_standard": "Malevolent Standard",
+ "spell.ess_requiem.place_standard.guide": "Place a sentient battle standard. The standard will fight, either by unleashing a wave, slashing all caught by it, summoning golden swords to fight for it, and once per summon, unleashing a huge wave of power which enhances allies fighting power, and gives those hit a counterspell shield for one hit, and extra damage.",
 
  "ui.enders_spells.not_empty_hand": "You try and flex your claws, yet something's in the way.",
  "ui.ess_requiem.desperate_damage": "%d Desperation Damage",
@@ -157,11 +163,16 @@
  "item.ess_requiem.spellblade_upgrade_orb": "Spellblade Upgrade Orb",
  "item.ess_requiem.potential": "Potential",
  "item.ess_requiem.practice": "Practice",
+ "item.ess_requiem.expertise": "Expertise",
+ "item.ess_requiem.intertwined_peak": "Intertwined Peak",
+ "item.ess_requiem.skyfalls_cause": "Skyfall's Cause",
+ "item.ess_requiem.swift_demise": "Swift Demise",
 
 
 
  "item.ess_requiem.fragment_of_clarity": "Fragment of Clarity",
  "item.ess_requiem.completed_clarity": "Completed Clarity",
+ "item.ess_requiem.emboldened_ingot": "Emboldened Ingot",
 
 
  "death.attack.ess_requiem.boiling_blood": "%1$s was boiled alive by %2$s",

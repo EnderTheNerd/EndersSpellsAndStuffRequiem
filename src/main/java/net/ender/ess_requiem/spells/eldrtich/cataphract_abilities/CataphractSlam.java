@@ -1,4 +1,4 @@
-package net.ender.ess_requiem.spells.cataphract_abilities;
+package net.ender.ess_requiem.spells.eldrtich.cataphract_abilities;
 
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
 import io.redspace.ironsspellbooks.api.magic.MagicData;

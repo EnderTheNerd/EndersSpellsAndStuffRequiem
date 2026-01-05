@@ -56,15 +56,15 @@ public class CleaveSpell extends AbstractSpell {
 
 
     private final DefaultConfig defaultConfig = new DefaultConfig()
-            .setMinRarity(SpellRarity.COMMON)
+            .setMinRarity(SpellRarity.LEGENDARY)
             .setSchoolResource(GGSchoolRegistry.BLADE_RESOURCE)
-            .setMaxLevel(5)
+            .setMaxLevel(1)
             .setCooldownSeconds(35)
             .build();
 
     public CleaveSpell() {
         this.manaCostPerLevel = 10;
-        this.baseSpellPower = 5;
+        this.baseSpellPower = 20;
         this.spellPowerPerLevel = 2;
         this.castTime = 10;
         this.baseManaCost = 55;
@@ -215,6 +215,22 @@ public class CleaveSpell extends AbstractSpell {
     @Override
     public AnimationHolder getCastFinishAnimation() {
         return AnimationHolder.pass();
+    }
+
+
+    @Override
+    public boolean canBeCraftedBy(Player player) {
+        return false;
+    }
+
+    @Override
+    public boolean allowCrafting() {
+        return false;
+    }
+
+    @Override
+    public boolean allowLooting() {
+        return false;
     }
 
 

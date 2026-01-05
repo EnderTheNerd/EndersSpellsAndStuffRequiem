@@ -1,6 +1,7 @@
 package net.ender.ess_requiem.events;
 
 import dev.shadowsoffire.apothic_attributes.api.ALObjects;
+import io.redspace.ironsspellbooks.api.events.CounterSpellEvent;
 import io.redspace.ironsspellbooks.api.events.SpellOnCastEvent;
 import io.redspace.ironsspellbooks.api.events.SpellPreCastEvent;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
@@ -23,12 +24,12 @@ import net.ender.ess_requiem.item.sword_tier.BloodWeapons.ArmOfDecay;
 import net.ender.ess_requiem.item.sword_tier.BloodWeapons.ScytheOfRottenDreams;
 import net.ender.ess_requiem.item.sword_tier.EldritchWeapons.BrokenPromise;
 import net.ender.ess_requiem.item.sword_tier.EldritchWeapons.MidnightEmbrace;
-import net.ender.ess_requiem.registries.GGEffectRegistry;
+import net.ender.ess_requiem.item.sword_tier.SpellbladeWeapons.IntertwinedPeak;
+import net.ender.ess_requiem.item.sword_tier.SpellbladeWeapons.SkyfallsCause;
+import net.ender.ess_requiem.item.sword_tier.SpellbladeWeapons.SwiftDemise;
+import net.ender.ess_requiem.registries.*;
 
 
-import net.ender.ess_requiem.registries.GGItemRegistry;
-import net.ender.ess_requiem.registries.GGSoundRegistry;
-import net.ender.ess_requiem.registries.GGSpellRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 
@@ -53,6 +54,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -64,11 +66,14 @@ import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.Objects;
 
 @EventBusSubscriber
 public class ModEvents {
+
+
 
 
     @SubscribeEvent
@@ -92,39 +97,71 @@ public class ModEvents {
     }
 
     @SubscribeEvent
+    public static void CounterspellShield(CounterSpellEvent event) {
+        if (event.target instanceof LivingEntity livingEntity) {
+            if (livingEntity.hasEffect(GGEffectRegistry.BANNER_PROTECTION)) {
+                event.setCanceled(true);
+                MagicManager.spawnParticles(livingEntity.level(), ParticleHelper.FIERY_SPARKS, livingEntity.getX(), livingEntity.getY() + 1, livingEntity.getZ(), 30, 0, 0, 0, 1, false);
+                livingEntity.removeEffect(GGEffectRegistry.BANNER_PROTECTION);
+                livingEntity.level().playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), GGSoundRegistry.BANNER_SPELL_PARRY, SoundSource.NEUTRAL, .8F, 1.3F);
+
+                if (livingEntity instanceof ServerPlayer player) {
+                    player.displayClientMessage(Component.literal(ChatFormatting.ITALIC + "Protected by the Banner")
+                            .withStyle(s -> s.withColor(TextColor.fromRgb(14522123))), true);
+                }
+            }
+        }
+
+    }
+
+    @SubscribeEvent
     public static void WeaponCombining(PlayerInteractEvent.RightClickItem event) {
         var entity = event.getEntity();
         if (entity instanceof ServerPlayer serverPlayer) {
             ItemStack mainhandItem = ((LivingEntity) serverPlayer).getMainHandItem();
             ItemStack offhandItem = ((LivingEntity) serverPlayer).getOffhandItem();
-            if (mainhandItem.getItem() instanceof BrokenPromise && offhandItem.getItem() instanceof ScytheOfRottenDreams) {
-                    serverPlayer.getInventory().setItem(serverPlayer.getInventory().selected, new ItemStack(GGItemRegistry.ARM_OF_DECAY.get()));
-                    serverPlayer.getInventory().offhand.clear();
-
-                }
+            if (serverPlayer.isCrouching()) {
+                serverPlayer.displayClientMessage(Component.literal(ChatFormatting.ITALIC + "Your weapons refuse to move whilst crouched.")
+                        .withStyle(s -> s.withColor(TextColor.fromRgb(14522123))), true);
+            }
+            else if (mainhandItem.getItem() instanceof SkyfallsCause && offhandItem.getItem() instanceof SwiftDemise) {
+                serverPlayer.getInventory().setItem(serverPlayer.getInventory().selected, new ItemStack((ItemLike) GGItemRegistry.INTERTWINED_PEAK));
+                serverPlayer.level().playSound(null, serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(), GGSoundRegistry.PARRY, SoundSource.NEUTRAL, .8F, 1.3F);
+                serverPlayer.getInventory().offhand.clear();
 
             }
 
-
+        }
     }
+
+
 
     @SubscribeEvent
     public static void UncombiningWeapons(PlayerInteractEvent.RightClickItem event) {
         var entity = event.getEntity();
         if (entity instanceof ServerPlayer serverPlayer) {
+            var inventoryCheck = serverPlayer.getInventory().getFreeSlot();
             ItemStack mainhandItem = ((LivingEntity) serverPlayer).getMainHandItem();
-            ItemStack offhandItem = ((LivingEntity) serverPlayer).getOffhandItem();
-            if (mainhandItem.getItem() instanceof ArmOfDecay) {
-                serverPlayer.getInventory().setItem(serverPlayer.getInventory().selected, new ItemStack(GGItemRegistry.SCYTHE_OF_ROTTEN_DREAMS.get()));
-                serverPlayer.getInventory().setItem(serverPlayer.getInventory().getFreeSlot(), new ItemStack(GGItemRegistry.BROKEN_PROMISE.get()));
+            if (inventoryCheck == -1) {
+                serverPlayer.displayClientMessage(Component.literal(ChatFormatting.ITALIC + "Your weapon refuses to move.")
+                        .withStyle(s -> s.withColor(TextColor.fromRgb(14522123))), true);
 
             }
+            else if (serverPlayer.isCrouching()) {
+                if (mainhandItem.getItem() instanceof IntertwinedPeak && serverPlayer.isCrouching()) {
+                    serverPlayer.getInventory().setItem(serverPlayer.getInventory().selected, new ItemStack((ItemLike) GGItemRegistry.SWIFT_DEMISE));
+                    serverPlayer.getInventory().setItem(serverPlayer.getInventory().getFreeSlot(), new ItemStack((ItemLike) GGItemRegistry.SKYFALLS_CAUSE));
+                    serverPlayer.level().playSound(null, serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(), GGSoundRegistry.PARRY, SoundSource.NEUTRAL, .8F, 1.3F);
 
+                }
+            }
+            else {
+                serverPlayer.displayClientMessage(Component.literal(ChatFormatting.ITALIC + "Your weapon refuses to move whilst standing")
+                        .withStyle(s -> s.withColor(TextColor.fromRgb(14522123))), true);
+            }
         }
 
-
     }
-
     @SubscribeEvent
     public static void PactAttackDay(LivingDamageEvent.Post event) {
         var attacker = event.getSource().getDirectEntity();

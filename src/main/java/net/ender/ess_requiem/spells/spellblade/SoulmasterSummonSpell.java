@@ -45,7 +45,7 @@ public class SoulmasterSummonSpell extends AbstractSpell {
     }
 
     public double getHealthBonus(int spellLevel, LivingEntity caster) {
-        // 10% extra health for every extra spell power
+
         return (getSpellPower(spellLevel, caster) - 1) * .5;
     }
 
@@ -99,6 +99,7 @@ public class SoulmasterSummonSpell extends AbstractSpell {
             weapon.finalizeSpawn((ServerLevel) world, world.getCurrentDifficultyAt(weapon.getOnPos()), MobSpawnType.MOB_SUMMONED, null);
             weapon.getAttribute(Attributes.ATTACK_DAMAGE).addPermanentModifier(damageModifier);
             weapon.getAttribute(Attributes.MAX_HEALTH).addPermanentModifier(healthModifier);
+            weapon.setHealth(weapon.getMaxHealth());
             var creature = NeoForge.EVENT_BUS.post(new SpellSummonEvent<>(entity, weapon, this.spellId, spellLevel)).getCreature();
             world.addFreshEntity(creature);
             SummonManager.initSummon(entity, creature, summonTime, summonedEntitiesCastData);

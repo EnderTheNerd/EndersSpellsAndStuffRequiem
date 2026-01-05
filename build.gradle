@@ -167,8 +167,6 @@ dependencies {
     //ACE
     implementation "curse.maven:aces-spell-utils-1299492:7382269"
 
-    //MEGA CORPORATIONS
-    implementation "curse.maven:gtbcs-spelllib-1194714:6164512"
 
     // GECKOLIB ***************************************************************************************************
     implementation "curse.maven:geckolib-388172:6304958"

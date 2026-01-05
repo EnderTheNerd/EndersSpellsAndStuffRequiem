@@ -98,7 +98,7 @@ public class UppercutSpell extends AbstractSpell {
 
     @Override
     public int getEffectiveCastTime(int spellLevel, @Nullable LivingEntity entity) {
-        //due to animation timing, we do not want cast time attribute to affect this spell
+
         return getCastTime(spellLevel);
     }
 
