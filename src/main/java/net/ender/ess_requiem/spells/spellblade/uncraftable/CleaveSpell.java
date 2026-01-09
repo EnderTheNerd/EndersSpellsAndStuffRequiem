@@ -1,8 +1,6 @@
 package net.ender.ess_requiem.spells.spellblade.uncraftable;
 
-import com.gametechbc.spelllib.particle.CylinderParticleManager;
-import com.gametechbc.spelllib.particle.ParticleDirection;
-import com.gametechbc.spelllib.particle.SphereParticleManager;
+
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
