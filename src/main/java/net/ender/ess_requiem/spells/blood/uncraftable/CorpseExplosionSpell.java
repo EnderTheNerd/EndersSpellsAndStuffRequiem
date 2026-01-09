@@ -53,7 +53,7 @@ public class CorpseExplosionSpell extends AbstractSpell {
             .setMinRarity(SpellRarity.LEGENDARY)
             .setSchoolResource(SchoolRegistry.BLOOD_RESOURCE)
             .setMaxLevel(1)
-            .setCooldownSeconds(5)
+            .setCooldownSeconds(35)
             .build();
 
     @Override
