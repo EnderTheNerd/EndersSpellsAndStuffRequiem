@@ -56,7 +56,10 @@ public class IntertwinedPeak extends MagicSwordItem {
                     withStyle(ChatFormatting.YELLOW).
                     withStyle(ChatFormatting.ITALIC)
             );
-
+            tooltipComponents.add(Component.translatable(this.getDescriptionId() + ".desc2").
+                    withStyle(ChatFormatting.YELLOW).
+                    withStyle(ChatFormatting.ITALIC)
+            );
 
 
             tooltipComponents.add(Component.literal(" ").append(Component.translatable(this.getDescriptionId() + ".desc3")).withStyle(ChatFormatting.RED));
