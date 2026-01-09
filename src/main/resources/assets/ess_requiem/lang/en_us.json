@@ -30,6 +30,7 @@
  "effect.ess_requiem.undying_dread": "Undying Dread",
  "effect.ess_requiem.stunned": "Stunned",
  "effect.ess_requiem.banner_protection": "Banner Protection",
+ "effect.ess_requiem.reviving_sickness": "Reviving Sickness",
 
  "entity.ess_requiem.hopping_skull": "Cursed Skull",
  "entity.ess_requiem.skull_mass": "Skull Mass",
@@ -43,6 +44,8 @@
  "spell.ess_requiem.cataphract_heal": "Cataphract Heal (CREATIVE ONLY)",
  "spell.ess_requiem.slashing_ability": "Slashing Ability (CREATIVE ONLY)",
  "spell.ess_requiem.gild_summon": "Guilded Sword Summon (CREATIVE ONLY)",
+ "spell.ess_requiem.arm_of_decay_insta_raise": "Arm of Decay Passive Ability (CREATIVE ONLY)",
+
 
 
  "spell.ess_requiem.pact_of_the_dead": "Pact of the Dead",
@@ -67,6 +70,8 @@
  "spell.ess_requiem.corpse_explosion.guide": "Violently explode the body of a summoned creature, obliterating it, and leaving a toxic puddle of blood behind. The Evolved form of Sacrifice",
  "spell.ess_requiem.finality_of_decay": "The Finality of Decay",
  "spell.ess_requiem.finality_of_decay.guide": "Unleash a countdown upon a target. Once the countdown reaches zero, the target takes heavy damage, and begins to rot and wither away rapidly.",
+
+
 
  "spell.ess_requiem.ebony_armor": "Ebony Armor",
  "spell.ess_requiem.ebony_armor.guide": "Take on cursed Ebony Plating upon your body, enhancing all your physical aspects to the supreme. However, the plates shackle your spell casting, preventing it in full.",
@@ -146,6 +151,8 @@
  "item.ess_requiem.scythe_of_rotten_dreams": "Scythe of Rotten Dreams",
  "item.ess_requiem.scythe_of_frozen_dreams": "Scythe of Frozen Dreams",
  "item.ess_requiem.arm_of_decay": "Arm of Decay",
+ "item.ess_requiem.arm_of_decay.desc": "When below 50% HP, strikes with the scythe call forth a massive army of undead.",
+ "item.ess_requiem.arm_of_decay.lore": "Granted Divinity, The weapon pulses with its own heartbeat.",
  "item.ess_requiem.nameless_ring": "Nameless Ring",
  "item.ess_requiem.nameless_ring.desc": "The ring of an unnamed king. You feel the power of decay within.",
  "item.ess_requiem.cataphract_ring": "Cataphract Ring",
@@ -154,6 +161,8 @@
  "item.ess_requiem.midnight_embrace": "Midnight Embrace",
  "item.ess_requiem.broken_promise": "Broken Promise",
  "item.ess_requiem.inevitability": "Inevitability",
+ "item.ess_requiem.inevitability.desc": "When the blade is held, prevents death, albeit, every death weakens your overall abilities.",
+ "item.ess_requiem.inevitability.lore": "Granted Divinity, The weapon projects the past, present, and future, promising death.",
  "item.ess_requiem.hope": "Hope",
  "item.ess_requiem.blademaster_helmet": "Blademaster Helmet",
  "item.ess_requiem.blademaster_chestplate": "Blademaster Chestplate",
@@ -165,11 +174,23 @@
  "item.ess_requiem.practice": "Practice",
  "item.ess_requiem.expertise": "Expertise",
  "item.ess_requiem.intertwined_peak": "Intertwined Peak",
+ "item.ess_requiem.intertwined_peak.lore": "Granted Divinity, The weapon is pinnacle of blades, mastery of swordsmanship.",
+ "item.ess_requiem.intertwined_peak.desc": "The blade is free from shackles of enchantments, and refuses to be enchanted.",
+ "item.ess_requiem.intertwined_peak.desc2": "Right click the blade, while crouching to split it.",
+ "item.ess_requiem.intertwined_peak.desc3": "Inflicts Overwhelming Dread. Combo with other blade effects, Skillful Wound, or Shattered Will to cause powerful synergies.",
  "item.ess_requiem.skyfalls_cause": "Skyfall's Cause",
+ "item.ess_requiem.skyfalls_cause.lore": "Half of the peak. The blade twitches near foes, eager to strike them with wroth force.",
+ "item.ess_requiem.skyfalls_cause.desc": "Right click with Skyfall's Cause in one hand, and Swift Demise in the other, while standing, to fuse.",
+ "item.ess_requiem.skyfalls_cause.desc2": "Inflicts Shattered Will. Combo with other blade effects, Overwhelming Dread or Skillful Wound to cause powerful synergies.",
+ "item.ess_requiem.skyfalls_cause.desc3": "The blade is free from shackles of enchantments, and refuses to be enchanted.",
  "item.ess_requiem.swift_demise": "Swift Demise",
+ "item.ess_requiem.swift_demise.lore": "Half of the peak. The blade seems to ready itself for you, as if it could react faster than you.",
+ "item.ess_requiem.swift_demise.desc": "Right click with Swift Demise in one hand, and Skyfall's Cause in the other, while standing, to fuse",
+ "item.ess_requiem.swift_demise.desc2": "Inflicts Skillful Wound. Combo with other blade effects, Overwhelming Dread, or Shattered will to cause powerful synergies.",
+ "item.ess_requiem.swift_demise.desc3": "The blade is free from shackles of enchantments, and refuses to be enchanted.",
 
 
-
+ "item.ess_requiem.more_details": "Shift for More...",
  "item.ess_requiem.fragment_of_clarity": "Fragment of Clarity",
  "item.ess_requiem.completed_clarity": "Completed Clarity",
  "item.ess_requiem.emboldened_ingot": "Emboldened Ingot",

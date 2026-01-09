@@ -74,6 +74,8 @@ public class GGEffectRegistry {
     public static final DeferredHolder<MobEffect, MobEffect> NIGHT_VEIL = MOB_EFFECT_DEFERRED_REGISTER.register("night_veil",
             ()-> new NightVeilEffect(MobEffectCategory.BENEFICIAL, 2632510));
 
+    public static final DeferredHolder<MobEffect, MobEffect> REVIVING_SICKNESS = MOB_EFFECT_DEFERRED_REGISTER.register("reviving_sickness",
+            () -> new RevivingSicknessEffect(MobEffectCategory.HARMFUL, 263441));
 
     //DAMN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public static final DeferredHolder<MobEffect, MobEffect> DAMNED = MOB_EFFECT_DEFERRED_REGISTER.register("damned",

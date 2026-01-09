@@ -4,6 +4,7 @@ import dev.shadowsoffire.apothic_attributes.api.ALObjects;
 import io.redspace.ironsspellbooks.api.events.CounterSpellEvent;
 import io.redspace.ironsspellbooks.api.events.SpellOnCastEvent;
 import io.redspace.ironsspellbooks.api.events.SpellPreCastEvent;
+import io.redspace.ironsspellbooks.api.events.SpellSummonEvent;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 
 import io.redspace.ironsspellbooks.api.registry.SchoolRegistry;
@@ -13,7 +14,9 @@ import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
 import io.redspace.ironsspellbooks.entity.mobs.IMagicSummon;
 
+import io.redspace.ironsspellbooks.entity.mobs.SummonedZombie;
 import io.redspace.ironsspellbooks.entity.mobs.frozen_humanoid.FrozenHumanoid;
+import io.redspace.ironsspellbooks.particle.BlastwaveParticleOptions;
 import io.redspace.ironsspellbooks.player.SpinAttackType;
 import io.redspace.ironsspellbooks.registries.MobEffectRegistry;
 import io.redspace.ironsspellbooks.registries.ParticleRegistry;
@@ -23,6 +26,7 @@ import io.redspace.ironsspellbooks.util.ParticleHelper;
 import net.ender.ess_requiem.item.sword_tier.BloodWeapons.ArmOfDecay;
 import net.ender.ess_requiem.item.sword_tier.BloodWeapons.ScytheOfRottenDreams;
 import net.ender.ess_requiem.item.sword_tier.EldritchWeapons.BrokenPromise;
+import net.ender.ess_requiem.item.sword_tier.EldritchWeapons.Inevitability;
 import net.ender.ess_requiem.item.sword_tier.EldritchWeapons.MidnightEmbrace;
 import net.ender.ess_requiem.item.sword_tier.SpellbladeWeapons.IntertwinedPeak;
 import net.ender.ess_requiem.item.sword_tier.SpellbladeWeapons.SkyfallsCause;
@@ -38,6 +42,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -46,6 +51,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -57,8 +63,10 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
@@ -74,8 +82,6 @@ import java.util.Objects;
 public class ModEvents {
 
 
-
-
     @SubscribeEvent
     public static void CataphractWeaponTransformation(LivingDamageEvent.Pre event) {
         var sourceEntity = event.getSource().getEntity();
@@ -87,7 +93,7 @@ public class ModEvents {
                     serverPlayer.getInventory().setItem(serverPlayer.getInventory().selected, new ItemStack(GGItemRegistry.BROKEN_PROMISE.get()));
                     serverPlayer.level().playSound(null, serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(), GGSoundRegistry.MIDNIGHT_EMBRACE_GLASS_SHATTER, SoundSource.NEUTRAL, .8F, 1.3F);
                     serverPlayer.displayClientMessage(Component.literal(ChatFormatting.ITALIC + "Your sword shatters as if it was made of glass.")
-                                .withStyle(s -> s.withColor(TextColor.fromRgb(10032177))), true);
+                            .withStyle(s -> s.withColor(TextColor.fromRgb(10032177))), true);
 
                 }
 
@@ -120,21 +126,33 @@ public class ModEvents {
         if (entity instanceof ServerPlayer serverPlayer) {
             ItemStack mainhandItem = ((LivingEntity) serverPlayer).getMainHandItem();
             ItemStack offhandItem = ((LivingEntity) serverPlayer).getOffhandItem();
-            if (serverPlayer.isCrouching()) {
+            if (serverPlayer.isCrouching() && (mainhandItem.getItem() instanceof SkyfallsCause && offhandItem.getItem() instanceof SwiftDemise)) {
                 serverPlayer.displayClientMessage(Component.literal(ChatFormatting.ITALIC + "Your weapons refuse to move whilst crouched.")
                         .withStyle(s -> s.withColor(TextColor.fromRgb(14522123))), true);
-            }
-            else if (mainhandItem.getItem() instanceof SkyfallsCause && offhandItem.getItem() instanceof SwiftDemise) {
+
+
+                if (serverPlayer.isCrouching() && (mainhandItem.getItem() instanceof SwiftDemise && offhandItem.getItem() instanceof SkyfallsCause)) {
+                    serverPlayer.displayClientMessage(Component.literal(ChatFormatting.ITALIC + "Your weapons refuse to move whilst crouched.")
+                            .withStyle(s -> s.withColor(TextColor.fromRgb(14522123))), true);
+
+
+                }
+
+            } else if (mainhandItem.getItem() instanceof SwiftDemise && offhandItem.getItem() instanceof SkyfallsCause) {
+                serverPlayer.getInventory().setItem(serverPlayer.getInventory().selected, new ItemStack((ItemLike) GGItemRegistry.INTERTWINED_PEAK));
+                serverPlayer.level().playSound(null, serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(), GGSoundRegistry.PARRY, SoundSource.NEUTRAL, .8F, 1.3F);
+                serverPlayer.getInventory().offhand.clear();
+
+            } else if (mainhandItem.getItem() instanceof SkyfallsCause && offhandItem.getItem() instanceof SwiftDemise) {
                 serverPlayer.getInventory().setItem(serverPlayer.getInventory().selected, new ItemStack((ItemLike) GGItemRegistry.INTERTWINED_PEAK));
                 serverPlayer.level().playSound(null, serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(), GGSoundRegistry.PARRY, SoundSource.NEUTRAL, .8F, 1.3F);
                 serverPlayer.getInventory().offhand.clear();
 
             }
 
+
         }
     }
-
-
 
     @SubscribeEvent
     public static void UncombiningWeapons(PlayerInteractEvent.RightClickItem event) {
@@ -142,26 +160,25 @@ public class ModEvents {
         if (entity instanceof ServerPlayer serverPlayer) {
             var inventoryCheck = serverPlayer.getInventory().getFreeSlot();
             ItemStack mainhandItem = ((LivingEntity) serverPlayer).getMainHandItem();
-            if (inventoryCheck == -1) {
+            if (inventoryCheck == -1 && mainhandItem.getItem() instanceof IntertwinedPeak) {
                 serverPlayer.displayClientMessage(Component.literal(ChatFormatting.ITALIC + "Your weapon refuses to move.")
                         .withStyle(s -> s.withColor(TextColor.fromRgb(14522123))), true);
 
-            }
-            else if (serverPlayer.isCrouching()) {
+            } else if (serverPlayer.isCrouching() && mainhandItem.getItem() instanceof IntertwinedPeak) {
                 if (mainhandItem.getItem() instanceof IntertwinedPeak && serverPlayer.isCrouching()) {
                     serverPlayer.getInventory().setItem(serverPlayer.getInventory().selected, new ItemStack((ItemLike) GGItemRegistry.SWIFT_DEMISE));
                     serverPlayer.getInventory().setItem(serverPlayer.getInventory().getFreeSlot(), new ItemStack((ItemLike) GGItemRegistry.SKYFALLS_CAUSE));
                     serverPlayer.level().playSound(null, serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(), GGSoundRegistry.PARRY, SoundSource.NEUTRAL, .8F, 1.3F);
 
                 }
-            }
-            else {
+            } else if (mainhandItem.getItem() instanceof IntertwinedPeak) {
                 serverPlayer.displayClientMessage(Component.literal(ChatFormatting.ITALIC + "Your weapon refuses to move whilst standing")
                         .withStyle(s -> s.withColor(TextColor.fromRgb(14522123))), true);
             }
         }
 
     }
+
     @SubscribeEvent
     public static void PactAttackDay(LivingDamageEvent.Post event) {
         var attacker = event.getSource().getDirectEntity();
@@ -184,7 +201,6 @@ public class ModEvents {
     }
 
 
-
     @SubscribeEvent
     public static void PactAttackNight(LivingDamageEvent.Post event) {
         var attacker = event.getSource().getDirectEntity();
@@ -199,12 +215,11 @@ public class ModEvents {
         if (attacker instanceof ServerPlayer livingAttacker && livingAttacker.hasEffect(GGEffectRegistry.DAMNED)) {
             MagicData magicData = MagicData.getPlayerMagicData(livingAttacker);
             if (magicData.getMana() < 100) {
-             event.setNewDamage(0);
+                event.setNewDamage(0);
             }
             magicData.setMana(magicData.getMana() - 25);
         }
     }
-
 
 
     @SubscribeEvent
@@ -213,11 +228,10 @@ public class ModEvents {
         if (livingEntity instanceof ServerPlayer player && player.hasEffect(GGEffectRegistry.BASTION_OF_LIGHT)) {
             MagicData magicData = MagicData.getPlayerMagicData(livingEntity);
             if (magicData.getMana() > 250) {
-               event.setCanceled(true);
+                event.setCanceled(true);
                 livingEntity.level().playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), SoundRegistry.CLEANSE_CAST, SoundSource.NEUTRAL, .8F, 1.3F);
                 magicData.setMana(magicData.getMana() - 100);
-            }
-            else {
+            } else {
                 event.setCanceled(false);
             }
 
@@ -234,23 +248,24 @@ public class ModEvents {
 
         }
 
-        }
+    }
 
     @SubscribeEvent
     public static void ParryRanged(ProjectileImpactEvent event) {
         var parried_projectile = event.getProjectile();
         if (event.getRayTraceResult() instanceof EntityHitResult result && result.getEntity() instanceof LivingEntity entity) {
-             if (entity.hasEffect(GGEffectRegistry.PARRYING)){
-                 event.setCanceled(true);
-                 entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(), GGSoundRegistry.PARRY, SoundSource.NEUTRAL, .8F, 1.3F);
-                 event.getProjectile().deflect(ProjectileDeflection.AIM_DEFLECT, entity, entity, entity instanceof Player);
-             }
+            if (entity.hasEffect(GGEffectRegistry.PARRYING)) {
+                event.setCanceled(true);
+                entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(), GGSoundRegistry.PARRY, SoundSource.NEUTRAL, .8F, 1.3F);
+                event.getProjectile().deflect(ProjectileDeflection.AIM_DEFLECT, entity, entity, entity instanceof Player);
+            }
         }
     }
+
     @SubscribeEvent
     public static void CursedRevive(LivingDeathEvent event) {
         if (event.getEntity() instanceof LivingEntity livingEntity) {
-            if (livingEntity.hasEffect(GGEffectRegistry.CURSED_IMMORTALITY)){
+            if (livingEntity.hasEffect(GGEffectRegistry.CURSED_IMMORTALITY)) {
 
 
                 event.setCanceled(true);
@@ -267,23 +282,24 @@ public class ModEvents {
                 livingEntity.level().playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), GGSoundRegistry.CURSED_REVIVE, SoundSource.NEUTRAL, .8F, 1.3F);
 
 
-                if (event.getEntity() instanceof ServerPlayer player){
+                if (event.getEntity() instanceof ServerPlayer player) {
                     player.displayClientMessage(Component.literal(ChatFormatting.ITALIC + "You're not done until I say so.")
-                     .withStyle(s -> s.withColor(TextColor.fromRgb(14806476))), true);
+                            .withStyle(s -> s.withColor(TextColor.fromRgb(14806476))), true);
                     MagicData magicData = MagicData.getPlayerMagicData(player);
 
                     magicData.setMana(0);
 
                 }
 
-                }
+            }
 
-            }}
+        }
+    }
 
     @SubscribeEvent
     public static void UndyneReference(LivingDeathEvent event) {
         if (event.getEntity() instanceof LivingEntity livingEntity) {
-            if (livingEntity.hasEffect(GGEffectRegistry.SOUL_STRENGTH)){
+            if (livingEntity.hasEffect(GGEffectRegistry.SOUL_STRENGTH)) {
                 event.setCanceled(true);
 
                 livingEntity.removeEffect(GGEffectRegistry.SOUL_STRENGTH);
@@ -299,26 +315,26 @@ public class ModEvents {
 
                 livingEntity.level().playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), GGSoundRegistry.SURVIVING, SoundSource.NEUTRAL, .8F, 1.3F);
 
-                if (event.getEntity() instanceof ServerPlayer player){
+                if (event.getEntity() instanceof ServerPlayer player) {
                     player.displayClientMessage(Component.literal(ChatFormatting.ITALIC + "Not...Yet..I won't...die..here")
                             .withStyle(s -> s.withColor(TextColor.fromRgb(3020845))), true);
                 }
 
             }
 
-        }}
+        }
+    }
 
     @SubscribeEvent
     public static void UndyneReference2(MobEffectEvent.Expired event) {
         assert event.getEffectInstance() != null;
-        if (event.getEffectInstance().is(GGEffectRegistry.UNDYING_DREAD) && event.getEntity() instanceof ServerPlayer player)
-    {
-        player.kill();
+        if (event.getEffectInstance().is(GGEffectRegistry.UNDYING_DREAD) && event.getEntity() instanceof ServerPlayer player) {
+            player.kill();
 
-        player.displayClientMessage(Component.literal(ChatFormatting.ITALIC + "Even that...wasn't strong enough...")
-                .withStyle(s -> s.withColor(TextColor.fromRgb(13383279))), true);
+            player.displayClientMessage(Component.literal(ChatFormatting.ITALIC + "Even that...wasn't strong enough...")
+                    .withStyle(s -> s.withColor(TextColor.fromRgb(13383279))), true);
 
-    }
+        }
 
 
     }
@@ -354,22 +370,22 @@ public class ModEvents {
     @SubscribeEvent
     public static void FinalityOfDecay(MobEffectEvent.Expired event) {
         assert event.getEffectInstance() != null;
-        if (event.getEffectInstance().is(GGEffectRegistry.FINALITY_OF_DECAY) && event.getEntity() instanceof LivingEntity livingEntity)
-        {
+        if (event.getEffectInstance().is(GGEffectRegistry.FINALITY_OF_DECAY) && event.getEntity() instanceof LivingEntity livingEntity) {
 
 
-                livingEntity.hurt(livingEntity.damageSources().magic(), 15);
-                livingEntity.addEffect(new MobEffectInstance(MobEffects.WITHER, 300, 5));
-                livingEntity.addEffect(new MobEffectInstance(GGEffectRegistry.MARK_OF_DECAY, 300, 0));
+            livingEntity.hurt(livingEntity.damageSources().magic(), 15);
+            livingEntity.addEffect(new MobEffectInstance(MobEffects.WITHER, 300, 5));
+            livingEntity.addEffect(new MobEffectInstance(GGEffectRegistry.MARK_OF_DECAY, 300, 0));
 
-                livingEntity.playSound(GGSoundRegistry.CLOCK_TICKING.get(), 0.8f, 1.3F);
+            livingEntity.playSound(GGSoundRegistry.CLOCK_TICKING.get(), 0.8f, 1.3F);
 
-                if (livingEntity instanceof ServerPlayer serverPlayer){
+            if (livingEntity instanceof ServerPlayer serverPlayer) {
                 serverPlayer.displayClientMessage(Component.literal(ChatFormatting.ITALIC + "The Clock Strikes Nil")
                         .withStyle(s -> s.withColor(TextColor.fromRgb(15556694))), true);
-                    serverPlayer.playSound(GGSoundRegistry.CLOCK_TICKING.get(), 0.8f, 1.3F);
-                }
-            }}
+                serverPlayer.playSound(GGSoundRegistry.CLOCK_TICKING.get(), 0.8f, 1.3F);
+            }
+        }
+    }
 
     private static boolean isUnderSunTick(Level level, LivingEntity entity) {
         if (level.isDay() && !level.isClientSide) {
@@ -387,12 +403,12 @@ public class ModEvents {
     private static boolean isUnderMoonTick(Level level, LivingEntity entity) {
         if (level.isNight() && !level.isClientSide) {
             return level.isNight();
-        }
-        else {
+        } else {
             return false;
         }
 
     }
+
     @SubscribeEvent
     public static void Reaper(LivingDeathEvent event) {
 
@@ -406,7 +422,9 @@ public class ModEvents {
                 player.addEffect(new MobEffectInstance(MobEffects.HEAL, 1));
 
 
-            }}}
+            }
+        }
+    }
 
 
     @SubscribeEvent
@@ -523,7 +541,8 @@ public class ModEvents {
             }
         }
     }
-//THANKS ACE!!!
+
+    //THANKS ACE!!!
     public static String convertTicksToTime(int ticks) {
         // Convert ticks to seconds
         int totalSeconds = ticks / 20;
@@ -535,8 +554,6 @@ public class ModEvents {
         // Format the result as mm:ss
         return String.format("%02d:%02d", minutes, seconds);
     }
-
-
 
 
     @SubscribeEvent
@@ -560,9 +577,8 @@ public class ModEvents {
 
                 MagicManager.spawnParticles(attacked.level(), ParticleTypes.FALLING_OBSIDIAN_TEAR, attacker2.getX(), attacker2.getY() + .25f, attacker2.getZ(), 100, .03, .4, .03, .4, false);
 
-            }
-
-            else {  magicData.setMana(magicData.getMana() - 75);
+            } else {
+                magicData.setMana(magicData.getMana() - 75);
                 assert attacker != null;
                 attacker.hurt(attacker.damageSources().magic(), 3);
                 attacked.level().playSound(null, attacked.getX(), attacked.getY(), attacked.getZ(),
@@ -570,14 +586,90 @@ public class ModEvents {
                 event.setNewDamage(event.getOriginalDamage() * .5F);
 
 
-                MagicManager.spawnParticles(attacked.level(), ParticleTypes.FALLING_OBSIDIAN_TEAR, attacker.getX(), attacker.getY() + .25f, attacker.getZ(), 100, .03, .4, .03, .4, false);}
-
+                MagicManager.spawnParticles(attacked.level(), ParticleTypes.FALLING_OBSIDIAN_TEAR, attacker.getX(), attacker.getY() + .25f, attacker.getZ(), 100, .03, .4, .03, .4, false);
+            }
 
 
         }
     }
 
+    //ALL WEAPON PASSIVE
+    @SubscribeEvent
+    public static void WeaponPassiveAbilitiesMelee(LivingDamageEvent.Post event) {
+
+
+        var sourceEntity = event.getSource().getEntity();
+        if (sourceEntity instanceof LivingEntity livingEntity) {
+            ItemStack mainhandItem = livingEntity.getMainHandItem();
+
+            //ARM OF DECAY (YES ACE IM COPYING YOUR ORGANIZATION STYLE)
+            if (mainhandItem.getItem() instanceof ArmOfDecay && (!(livingEntity instanceof Player player) || !player.getCooldowns().isOnCooldown(GGItemRegistry.ARM_OF_DECAY.get()))) {
+                final float MAX_HEALTH = livingEntity.getMaxHealth();
+                float baseHealth = livingEntity.getHealth();
+                double percent = (baseHealth / MAX_HEALTH) * 100;
+
+                if (percent < 50) {
+
+                    assert livingEntity instanceof ServerPlayer;
+                    GGSpellRegistry.ARM_OF_DECAY_PASSIVE.get().castSpell(event.getEntity().level(), 1, (ServerPlayer) livingEntity, CastSource.SWORD, true);
+
+                    if (livingEntity instanceof Player player) {
+                        player.getCooldowns().addCooldown(GGItemRegistry.ARM_OF_DECAY.get(), ArmOfDecay.COOLDOWN);
+                    }
+
+
+                }
+
+
+            }
+
+        }
+
+    }
+
+    @SubscribeEvent
+    public static void WeaponPassiveAbilitiesDeath(LivingDeathEvent event) {
+        var sourceEntity = event.getEntity();
+        if (sourceEntity instanceof LivingEntity livingEntity) {
+            ItemStack mainhandItem = livingEntity.getMainHandItem();
+
+            if (mainhandItem.getItem() instanceof Inevitability && (!(livingEntity instanceof Player player) || !player.getCooldowns().isOnCooldown(GGItemRegistry.INEVITABILITY.get()))) {
+
+
+                event.setCanceled(true);
+                livingEntity.setHealth(livingEntity.getMaxHealth());
+
+                if (livingEntity.hasEffect(GGEffectRegistry.REVIVING_SICKNESS)) {
+                MobEffectInstance revivingSickness = livingEntity.getEffect(GGEffectRegistry.REVIVING_SICKNESS);
+                MobEffectInstance mobEffect;
+
+                    if (revivingSickness != null) {
+                        mobEffect = new MobEffectInstance(GGEffectRegistry.REVIVING_SICKNESS, 4800, revivingSickness.getAmplifier() + 1,revivingSickness.isAmbient(), revivingSickness.isVisible(), revivingSickness.showIcon());
+                    } else {
+                        mobEffect = new MobEffectInstance(GGEffectRegistry.REVIVING_SICKNESS, 4800, 0, false, false, true);
+                    }
+
+                    livingEntity.addEffect(new MobEffectInstance(GGEffectRegistry.REVIVING_SICKNESS, 4800));
+
+                }
+
+                livingEntity.addEffect(new MobEffectInstance(GGEffectRegistry.REVIVING_SICKNESS, 4800));
+                livingEntity.level().playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(),
+                        GGSoundRegistry.GREATER_REVIVE, SoundSource.PLAYERS, 0.3f, 1f);
+                MagicManager.spawnParticles(livingEntity.level(), new BlastwaveParticleOptions(GGSchoolRegistry.ELDRITCH.get().getTargetingColor(), 5), livingEntity.getX(), livingEntity.getY() + .165f, livingEntity.getZ(), 1, 0, 0, 0, 0, true);
+
+                if (livingEntity instanceof Player player) {
+                    player.getCooldowns().addCooldown(GGItemRegistry.INEVITABILITY.get(), Inevitability.COOLDOWN);
+                }
+            }
+
+        }
+
+    }
+
 }
+
+
 
 
 

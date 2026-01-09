@@ -115,5 +115,11 @@
     "sounds": [
       "ess_requiem:banner_summon"
     ]
+  },
+  "greater_revive": {
+    "subtitle": "sounds.ess_requiem.greater_revive",
+    "sounds": [
+      "ess_requiem:greater_revive"
+    ]
   }
 }

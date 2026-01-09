@@ -13,10 +13,7 @@ public class BannerProtectionEffect extends MagicMobEffect {
 
     public BannerProtectionEffect(MobEffectCategory category, int color) {
         super(MobEffectCategory.BENEFICIAL, 14522123);
-    }
 
-    public BannerProtectionEffect() {
-        super(MobEffectCategory.BENEFICIAL,14522123);
         this.addAttributeModifier(Attributes.ATTACK_DAMAGE, ResourceLocation.parse("banner_protection"),
                 5, AttributeModifier.Operation.ADD_VALUE);
         this.addAttributeModifier(GGAttributeRegistry.BLADE_SPELL_POWER, ResourceLocation.parse("banner_protection"),
@@ -25,3 +22,5 @@ public class BannerProtectionEffect extends MagicMobEffect {
 
 
 }
+
+

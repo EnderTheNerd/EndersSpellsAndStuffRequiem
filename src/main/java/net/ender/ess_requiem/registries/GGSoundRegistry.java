@@ -40,6 +40,8 @@ public class GGSoundRegistry {
 
     public static DeferredHolder<SoundEvent, SoundEvent> BLACK_FLAME_FINISH = registerSoundEvent("black_flame_finish");
 
+    public static DeferredHolder<SoundEvent, SoundEvent> GREATER_REVIVE = registerSoundEvent("greater_revive");
+
     //SPELLBLADE
     public static DeferredHolder<SoundEvent, SoundEvent> PARRY = registerSoundEvent("parry");
 
@@ -52,6 +54,7 @@ public class GGSoundRegistry {
     public static DeferredHolder<SoundEvent, SoundEvent> BANNER_SPELL_PARRY = registerSoundEvent("banner_spell_parry");
 
     public static DeferredHolder<SoundEvent, SoundEvent> BANNER_SUMMON = registerSoundEvent("banner_summon");
+
 
     private static DeferredHolder<SoundEvent, SoundEvent> registerSoundEvent(String name)
     {
