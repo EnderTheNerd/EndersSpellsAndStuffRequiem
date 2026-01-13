@@ -42,7 +42,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-@AutoSpellConfig
+
 public class CataphractSlam extends AbstractSpell {
     private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(EndersSpellsAndStuffRequiem.MOD_ID, "cataphract_slam");
 

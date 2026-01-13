@@ -1,7 +1,5 @@
 package net.ender.ess_requiem.spells.eldrtich;
 
-import com.gametechbc.spelllib.particle.CylinderParticleManager;
-import com.gametechbc.spelllib.particle.ParticleDirection;
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.spells.*;
@@ -26,7 +24,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import java.util.List;
 
 
-@AutoSpellConfig
+
 public class SpikesOfAgonySpell extends AbstractSpell {
     private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(EndersSpellsAndStuffRequiem.MOD_ID, "spikes_of_agony");
 

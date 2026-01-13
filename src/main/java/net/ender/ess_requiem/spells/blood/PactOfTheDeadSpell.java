@@ -21,7 +21,7 @@ import net.minecraft.world.level.Level;
 import java.util.List;
 import java.util.Optional;
 
-@AutoSpellConfig
+
 public class PactOfTheDeadSpell extends AbstractSpell {
 
 

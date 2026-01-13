@@ -17,7 +17,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.List;
 
-@AutoSpellConfig
+
 public class UndyingDreadSpell extends AbstractSpell {
 
     private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(EndersSpellsAndStuffRequiem.MOD_ID, "undying_dread");

@@ -24,7 +24,7 @@ import net.minecraft.world.level.Level;
 import javax.annotation.Nullable;
 import java.util.List;
 
-@AutoSpellConfig
+
 public class WretchSpell extends AbstractSpell {
     private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(EndersSpellsAndStuffRequiem.MOD_ID, "wretch");
 

@@ -36,7 +36,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-@AutoSpellConfig
+
 public class ArmOfDecayUndeadRaise extends AbstractSpell {
     private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(EndersSpellsAndStuffRequiem.MOD_ID, "arm_of_decay_insta_raise");
     private final DefaultConfig defaultConfig = new DefaultConfig()

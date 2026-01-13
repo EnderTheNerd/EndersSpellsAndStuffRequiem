@@ -41,7 +41,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-@AutoSpellConfig
+
 public class LordOfTheFinalFrostSpell extends AbstractSpell {
     private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(EndersSpellsAndStuffRequiem.MOD_ID, "lord_of_the_final_frost");
 

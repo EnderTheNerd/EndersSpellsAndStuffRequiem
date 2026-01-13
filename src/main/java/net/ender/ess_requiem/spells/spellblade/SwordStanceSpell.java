@@ -22,7 +22,7 @@ import net.minecraft.world.level.Level;
 import javax.annotation.Nullable;
 
 
-@AutoSpellConfig
+
 public class SwordStanceSpell extends AbstractSpell {
     private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(EndersSpellsAndStuffRequiem.MOD_ID, "sword_stance");
 

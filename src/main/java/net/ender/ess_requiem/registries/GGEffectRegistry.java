@@ -113,6 +113,15 @@ public class GGEffectRegistry {
     public static final DeferredHolder<MobEffect, MobEffect> BANNER_PROTECTION = MOB_EFFECT_DEFERRED_REGISTER.register("banner_protection",
             () -> new BannerProtectionEffect(MobEffectCategory.BENEFICIAL, 14522123));
 
+    public static final DeferredHolder<MobEffect, MobEffect> OVERWHELMING_DREAD = MOB_EFFECT_DEFERRED_REGISTER.register("overwhelming_force",
+            () -> new BannerProtectionEffect(MobEffectCategory.BENEFICIAL, 3020845));
+
+    public static final DeferredHolder<MobEffect, MobEffect> SKILLFUL_WOUND = MOB_EFFECT_DEFERRED_REGISTER.register("skillful_wound",
+            () -> new BannerProtectionEffect(MobEffectCategory.BENEFICIAL, 13528209));
+
+    public static final DeferredHolder<MobEffect, MobEffect> SHATTERED_WILL = MOB_EFFECT_DEFERRED_REGISTER.register("shattered_will",
+            () -> new BannerProtectionEffect(MobEffectCategory.BENEFICIAL, 7552367));
+
 
     //MISC EFFECTS
     public static final DeferredHolder<MobEffect, MobEffect> ABILITY_COOLDOWN = MOB_EFFECT_DEFERRED_REGISTER.register("ability_cooldown",

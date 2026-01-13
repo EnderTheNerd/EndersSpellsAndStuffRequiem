@@ -103,6 +103,21 @@ public class ModEvents {
     }
 
     @SubscribeEvent
+    public static void SKILLFUL_COMBOS(LivingDamageEvent.Post event) {
+        var attacked = event.getEntity();
+        var attacker = event.getSource().getDirectEntity();
+
+        if (attacked.hasEffect(GGEffectRegistry.OVERWHELMING_DREAD) && attacked.hasEffect(GGEffectRegistry.SKILLFUL_WOUND) && attacker instanceof ServerPlayer) {
+            attacked.removeEffect(GGEffectRegistry.OVERWHELMING_DREAD);
+            attacked.removeEffect(GGEffectRegistry.SKILLFUL_WOUND);
+
+            GGSpellRegistry.SLASHING_ABILITY.get().castSpell(event.getEntity().level(), 1, (ServerPlayer) attacker, CastSource.SPELLBOOK, true);
+
+        }
+
+    }
+
+    @SubscribeEvent
     public static void CounterspellShield(CounterSpellEvent event) {
         if (event.target instanceof LivingEntity livingEntity) {
             if (livingEntity.hasEffect(GGEffectRegistry.BANNER_PROTECTION)) {
@@ -625,6 +640,26 @@ public class ModEvents {
 
         }
 
+        //INTERTWINED PEAK
+
+        if (sourceEntity instanceof LivingEntity livingEntity) {
+            ItemStack mainhandItem = livingEntity.getMainHandItem();
+
+            var attacked = event.getEntity();
+
+
+            if (mainhandItem.getItem() instanceof IntertwinedPeak && (!(livingEntity instanceof Player player) || !player.getCooldowns().isOnCooldown(GGItemRegistry.INTERTWINED_PEAK.get()))) {
+
+                attacked.addEffect(new MobEffectInstance(GGEffectRegistry.OVERWHELMING_DREAD, 300));
+
+                assert livingEntity instanceof ServerPlayer;
+                if (livingEntity instanceof Player player) {
+                        player.getCooldowns().addCooldown(GGItemRegistry.INTERTWINED_PEAK.get(), IntertwinedPeak.COOLDOWN);
+                    }
+
+
+                }
+        }
     }
 
     @SubscribeEvent

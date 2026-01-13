@@ -45,7 +45,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-@AutoSpellConfig
+
 public class MalevolentSlashingSpell extends AbstractSpell {
     private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(EndersSpellsAndStuffRequiem.MOD_ID, "place_standard");
     @Override

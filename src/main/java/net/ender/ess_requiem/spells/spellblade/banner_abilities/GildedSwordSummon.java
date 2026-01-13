@@ -23,7 +23,7 @@ import net.neoforged.neoforge.common.NeoForge;
 
 import java.util.List;
 
-@AutoSpellConfig
+
 public class GildedSwordSummon extends AbstractSpell {
     private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(EndersSpellsAndStuffRequiem.MOD_ID, "gild_summon");
 

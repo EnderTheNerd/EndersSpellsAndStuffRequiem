@@ -42,7 +42,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-@AutoSpellConfig
+
 public class SummonSkullsSpell extends AbstractSpell {
     private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(EndersSpellsAndStuffRequiem.MOD_ID, "summon_skulls");
 

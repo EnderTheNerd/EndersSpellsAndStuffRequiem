@@ -2,7 +2,7 @@ package net.ender.ess_requiem.spells.spellblade;
 
 import io.redspace.ironsspellbooks.api.registry.SchoolRegistry;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
-import io.redspace.ironsspellbooks.api.spells.AutoSpellConfig;
+
 
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
@@ -46,7 +46,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-@AutoSpellConfig
+
 public class UppercutSpell extends AbstractSpell {
     private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(EndersSpellsAndStuffRequiem.MOD_ID, "uppercut");
 

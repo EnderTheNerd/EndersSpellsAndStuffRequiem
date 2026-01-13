@@ -19,7 +19,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.List;
 
-@AutoSpellConfig
+
 public class BastionOfLightSpell extends AbstractSpell {
     private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(EndersSpellsAndStuffRequiem.MOD_ID, "bastion_of_light");
 

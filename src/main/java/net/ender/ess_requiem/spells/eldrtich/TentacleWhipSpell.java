@@ -17,7 +17,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.List;
 
-@AutoSpellConfig
+
 public class TentacleWhipSpell extends AbstractSpell {
     private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(EndersSpellsAndStuffRequiem.MOD_ID, "tentacle_whip");
 

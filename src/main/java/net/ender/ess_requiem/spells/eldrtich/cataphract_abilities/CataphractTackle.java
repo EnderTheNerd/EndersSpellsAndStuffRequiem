@@ -34,7 +34,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import java.util.List;
 import java.util.Optional;
 
-@AutoSpellConfig
+
 public class CataphractTackle extends AbstractSpell {
     private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(EndersSpellsAndStuffRequiem.MOD_ID, "cataphract_tackle");
 

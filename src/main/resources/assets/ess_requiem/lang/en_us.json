@@ -31,6 +31,9 @@
  "effect.ess_requiem.stunned": "Stunned",
  "effect.ess_requiem.banner_protection": "Banner Protection",
  "effect.ess_requiem.reviving_sickness": "Reviving Sickness",
+ "effect.ess_requiem.skillful_wound": "Skillful Wound",
+ "effect.ess_requiem.shattered_will": "Shattered Will",
+ "effect.ess_requiem.overwhelming_dread": "Overwhelming Dread",
 
  "entity.ess_requiem.hopping_skull": "Cursed Skull",
  "entity.ess_requiem.skull_mass": "Skull Mass",

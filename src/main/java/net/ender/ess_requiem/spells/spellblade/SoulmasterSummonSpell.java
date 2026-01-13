@@ -33,7 +33,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import javax.annotation.Nullable;
 import java.util.List;
 
-@AutoSpellConfig
+
 public class SoulmasterSummonSpell extends AbstractSpell {
     private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(EndersSpellsAndStuffRequiem.MOD_ID, "soulmaster_summon");
 

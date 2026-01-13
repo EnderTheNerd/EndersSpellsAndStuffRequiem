@@ -21,7 +21,7 @@ import net.minecraft.world.level.Level;
 import java.util.List;
 import java.util.Optional;
 
-@AutoSpellConfig
+
 public class ReaperSpell extends AbstractSpell {
     private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(EndersSpellsAndStuffRequiem.MOD_ID, "reaper");
 
