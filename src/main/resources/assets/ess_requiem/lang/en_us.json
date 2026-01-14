@@ -138,7 +138,7 @@
 
  "ui.enders_spells.not_empty_hand": "You try and flex your claws, yet something's in the way.",
  "ui.ess_requiem.desperate_damage": "%d Desperation Damage",
- "ui.ess_requiem.rampage_damage": "%d Rampage Damage",
+ "ui.ess_requiem.rampage_damge": "%d Rampage Damage",
  "ui.ess_requiem.boil_count": "%d Boiling Shots",
  "ui.ess_requiem.rampage_summon": "1 Rampage Summon",
  "ui.ess_requiem.summon_exploded": "Summon reduced to nothingness",
