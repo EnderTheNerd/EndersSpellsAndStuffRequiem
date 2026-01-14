@@ -6,7 +6,13 @@ import io.redspace.ironsspellbooks.api.registry.SpellDataRegistryHolder;
 import io.redspace.ironsspellbooks.util.ItemPropertiesHelper;
 import net.ender.ess_requiem.item.GGSwordTier;
 import net.ender.ess_requiem.registries.GGSpellRegistry;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.TooltipFlag;
+
+import java.util.List;
 
 public class Expertise extends MagicSwordItem {
 
@@ -16,4 +22,14 @@ public class Expertise extends MagicSwordItem {
                         new SpellDataRegistryHolder(GGSpellRegistry.DISMANTLE, 1))
         );
     }
+
+    @Override
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+        tooltipComponents.add(Component.translatable("item.ess_requiem.expertise.lore").
+                withStyle(ChatFormatting.RED).
+                withStyle(ChatFormatting.ITALIC));
+
+    }
+
 }

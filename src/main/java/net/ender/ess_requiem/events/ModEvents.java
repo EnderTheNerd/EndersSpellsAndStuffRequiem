@@ -47,6 +47,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -103,7 +104,7 @@ public class ModEvents {
     }
 
     @SubscribeEvent
-    public static void SKILLFUL_COMBOS(LivingDamageEvent.Post event) {
+    public static void SkillfulCombos(LivingDamageEvent.Pre event) {
         var attacked = event.getEntity();
         var attacker = event.getSource().getDirectEntity();
 
@@ -111,11 +112,33 @@ public class ModEvents {
             attacked.removeEffect(GGEffectRegistry.OVERWHELMING_DREAD);
             attacked.removeEffect(GGEffectRegistry.SKILLFUL_WOUND);
 
-            GGSpellRegistry.SLASHING_ABILITY.get().castSpell(event.getEntity().level(), 1, (ServerPlayer) attacker, CastSource.SPELLBOOK, true);
+            GGSpellRegistry.SLASHING_ABILITY.get().castSpell(event.getEntity().level(), 1, (ServerPlayer) attacker, CastSource.SCROLL, true);
+
+        }
+
+        if (attacked.hasEffect(GGEffectRegistry.OVERWHELMING_DREAD) && attacked.hasEffect(GGEffectRegistry.SHATTERED_WILL) && attacker instanceof ServerPlayer) {
+            attacked.removeEffect(GGEffectRegistry.OVERWHELMING_DREAD);
+            attacked.removeEffect(GGEffectRegistry.SHATTERED_WILL);
+
+            attacker.hurt(attacked.damageSources().magic(), 30);
+
+            MagicManager.spawnParticles(attacked.level(), ParticleHelper.UNSTABLE_ENDER, attacked.getX(), attacked.getY() + 1, attacked.getZ(), 30, 0, 0, 0, 1, false);
+            MagicManager.spawnParticles(attacked.level(), ParticleHelper.COMET_FOG, attacked.getX(), attacked.getY() + 1, attacked.getZ(), 30, 0, 0, 0, 1, false);
+
+
+        }
+
+        if (attacked.hasEffect(GGEffectRegistry.SKILLFUL_WOUND) && attacked.hasEffect(GGEffectRegistry.SHATTERED_WILL) && attacker instanceof ServerPlayer) {
+            attacked.removeEffect(GGEffectRegistry.OVERWHELMING_DREAD);
+            attacked.removeEffect(GGEffectRegistry.SHATTERED_WILL);
+
+            event.setNewDamage(event.getOriginalDamage() * 1.5F);
+
 
         }
 
     }
+
 
     @SubscribeEvent
     public static void CounterspellShield(CounterSpellEvent event) {
@@ -641,7 +664,6 @@ public class ModEvents {
         }
 
         //INTERTWINED PEAK
-
         if (sourceEntity instanceof LivingEntity livingEntity) {
             ItemStack mainhandItem = livingEntity.getMainHandItem();
 
@@ -659,6 +681,46 @@ public class ModEvents {
 
 
                 }
+        }
+
+        //SWIFT_DEMISE
+        if (sourceEntity instanceof LivingEntity livingEntity) {
+            ItemStack mainhandItem = livingEntity.getMainHandItem();
+
+            var attacked = event.getEntity();
+
+
+            if (mainhandItem.getItem() instanceof SwiftDemise && (!(livingEntity instanceof Player player) || !player.getCooldowns().isOnCooldown(GGItemRegistry.SWIFT_DEMISE.get()))) {
+
+                attacked.addEffect(new MobEffectInstance(GGEffectRegistry.SKILLFUL_WOUND, 300));
+
+                assert livingEntity instanceof ServerPlayer;
+                if (livingEntity instanceof Player player) {
+                    player.getCooldowns().addCooldown(GGItemRegistry.SWIFT_DEMISE.get(), IntertwinedPeak.COOLDOWN);
+                }
+
+
+            }
+        }
+
+        //SKYFALLS CAUSE
+        if (sourceEntity instanceof LivingEntity livingEntity) {
+            ItemStack mainhandItem = livingEntity.getMainHandItem();
+
+            var attacked = event.getEntity();
+
+
+            if (mainhandItem.getItem() instanceof SkyfallsCause && (!(livingEntity instanceof Player player) || !player.getCooldowns().isOnCooldown(GGItemRegistry.SKYFALLS_CAUSE.get()))) {
+
+                attacked.addEffect(new MobEffectInstance(GGEffectRegistry.SHATTERED_WILL, 300));
+
+                assert livingEntity instanceof ServerPlayer;
+                if (livingEntity instanceof Player player) {
+                    player.getCooldowns().addCooldown(GGItemRegistry.SKYFALLS_CAUSE.get(), IntertwinedPeak.COOLDOWN);
+                }
+
+
+            }
         }
     }
 

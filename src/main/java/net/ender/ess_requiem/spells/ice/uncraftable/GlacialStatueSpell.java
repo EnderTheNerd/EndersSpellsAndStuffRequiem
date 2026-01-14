@@ -145,7 +145,6 @@ public class GlacialStatueSpell extends AbstractSpell {
 
 
                 {
-                    CameraShakeManager.addCameraShake(new CameraShakeData(10, targetEntity.position(), 20));
                     targetEntity.remove(Entity.RemovalReason.KILLED);
                     level.playSound(null, targetEntity.blockPosition(), SoundRegistry.ICE_BLOCK_IMPACT.get(), SoundSource.PLAYERS, 3, Utils.random.nextIntBetweenInclusive(8, 12) * .1f);
                 }

@@ -52,7 +52,7 @@ public class IntertwinedPeak extends MagicSwordItem {
                     ).withStyle(ChatFormatting.DARK_PURPLE)
 
             );
-            tooltipComponents.add(Component.translatable(this.getDescriptionId() + ".desc").
+            tooltipComponents.add(Component.translatable(this.getDescriptionId() + ".desc3").
                     withStyle(ChatFormatting.YELLOW).
                     withStyle(ChatFormatting.ITALIC)
             );
@@ -62,7 +62,7 @@ public class IntertwinedPeak extends MagicSwordItem {
             );
 
 
-            tooltipComponents.add(Component.literal(" ").append(Component.translatable(this.getDescriptionId() + ".desc3")).withStyle(ChatFormatting.RED));
+            tooltipComponents.add(Component.literal(" ").append(Component.translatable(this.getDescriptionId() + ".desc")).withStyle(ChatFormatting.RED));
             assert attacker != null;
         } else
         {

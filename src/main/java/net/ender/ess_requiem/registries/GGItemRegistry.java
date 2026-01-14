@@ -1,7 +1,11 @@
 package net.ender.ess_requiem.registries;
 
+import dev.shadowsoffire.apothic_attributes.api.ALObjects;
+import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
+import io.redspace.ironsspellbooks.item.SpellBook;
 import io.redspace.ironsspellbooks.item.UpgradeOrbItem;
 import io.redspace.ironsspellbooks.item.curios.CurioBaseItem;
+import io.redspace.ironsspellbooks.item.weapons.AttributeContainer;
 import io.redspace.ironsspellbooks.registries.ComponentRegistry;
 import io.redspace.ironsspellbooks.util.ItemPropertiesHelper;
 import net.acetheeldritchking.aces_spell_utils.utils.ASRarities;
@@ -20,6 +24,7 @@ import net.ender.ess_requiem.item.sword_tier.EldritchWeapons.MidnightEmbrace;
 import net.ender.ess_requiem.item.sword_tier.HolyWeapons.Hope;
 import net.ender.ess_requiem.item.sword_tier.IceWeapons.ScytheOfFrozenDreams;
 import net.ender.ess_requiem.item.sword_tier.SpellbladeWeapons.*;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -72,6 +77,9 @@ public class GGItemRegistry {
 
     public static final DeferredHolder<Item, Item> SPELLBLADE_UPGRADE_ORB = ITEMS.register("spellblade_upgrade_orb",
          () -> new UpgradeOrbItem(ItemPropertiesHelper.material().rarity(Rarity.UNCOMMON).component(ComponentRegistry.UPGRADE_ORB_TYPE, GGUpgradeOrbRegistry.SPELLBLADE_SPELL_POWER)));
+
+ public static final DeferredHolder<Item, Item> SPELLBLADE_SPELLBOOK = ITEMS.register("spellblade_spellbook", () -> new SpellBook(10)
+         .withSpellbookAttributes(new AttributeContainer(GGAttributeRegistry.BLADE_SPELL_POWER, .1, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), new AttributeContainer(ALObjects.Attributes.ARMOR_PIERCE, 4, AttributeModifier.Operation.ADD_VALUE), new AttributeContainer(AttributeRegistry.MAX_MANA, 200, AttributeModifier.Operation.ADD_VALUE)));
 
     public static final DeferredItem<Item> POTENTIAL = ITEMS.register("potential", Potential::new);
     public static final DeferredItem<Item> PRACTICE = ITEMS.register("practice", Practice::new);
