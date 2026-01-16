@@ -53,7 +53,8 @@ public class ModCreativeModTabs {
                         output.accept(GGItemRegistry.PRACTICE);
                         output.accept(GGItemRegistry.EXPERTISE);
                         output.accept(GGItemRegistry.INTERTWINED_PEAK);
-
+                        output.accept((ItemLike) GGItemRegistry.SUMMON_UPGRADE_ORB);
+                        output.accept(GGItemRegistry.PRIMAL_FLESH);
 
                     })
 
