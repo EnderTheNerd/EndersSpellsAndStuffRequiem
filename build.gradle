@@ -148,8 +148,8 @@ dependencies {
     implementation "curse.maven:irons-spells-n-spellbooks-855414:7402503"
 
     //GEMS AND JEWLERY
-    implementation "curse.maven:irons-jewelry-1101111:7358426"
-    implementation "curse.maven:atlas-api-1145462:6880789"
+    //implementation "curse.maven:irons-jewelry-1101111:7358426"
+    //implementation "curse.maven:atlas-api-1145462:6880789"
 
     //NEAT
     implementation "curse.maven:neat-238372:5838045"
